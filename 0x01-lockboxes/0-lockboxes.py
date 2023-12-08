@@ -5,6 +5,8 @@ Each box is numbered sequentially
 from 0 to n - 1 and each box may contain keys to the other boxes.
 """
 
+from collections import deque
+
 
 def canUnlockAll(boxes):
     """Checks if you can unlock all the boxes.
@@ -20,7 +22,19 @@ def canUnlockAll(boxes):
         return True
     knownKeys = set()
     openedBoxes = [False for i in boxes]
-    openBox(0, knownKeys, openedBoxes, boxes)
+    firstBox = openBox(0, knownKeys, openedBoxes, boxes)
+    stack = deque()
+    stack.append(firstBox)
+    while True:
+        if not stack:
+            break
+        try:
+            key = next(stack[-1])
+        except StopIteration:
+            stack.pop()
+        else:
+            box = openBox(key, knownKeys, openedBoxes, boxes)
+            stack.append(box)
     return all(openedBoxes)
 
 
@@ -40,4 +54,4 @@ def openBox(num, knownKeys, openedBoxes, boxes):
     keys = boxes[num]
     knownKeys.update(keys)
     for key in keys:
-        openBox(key, knownKeys, openedBoxes, boxes)
+        yield key
