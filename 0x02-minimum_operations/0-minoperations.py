@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/python3
 """You have a text file with `h` in it.
 Your text editor has only two operations, copy all and paste.
 Find the minimum operations that will take to have `n` number of `h`.
@@ -29,5 +29,4 @@ def minOperations(n: int) -> int:
     elif n <= 1:
         return 0
     peakFactor = getPeakFactor(n)
-    # print(n / minimum_operations(peakFactor))
     return int(n / peakFactor + minOperations(peakFactor))
