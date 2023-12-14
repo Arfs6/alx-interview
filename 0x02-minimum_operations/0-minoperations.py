@@ -6,7 +6,9 @@ Find the minimum operations that will take to have `n` number of `h`.
 
 
 def getPeakFactor(num: int) -> int:
-    """Return the factor of @num that has the highest result when @num is devided with it."""
+    """Return the factor of @num
+    that has the highest result when @num is devided with it.
+    """
     prevFactor = 1
     stop = num // 2
     for cur in range(1, stop + 1):
