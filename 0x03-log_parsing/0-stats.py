@@ -41,10 +41,12 @@ def run():
 
     while True:
         try:
-            log = sys.stdin.readline()
+            log = input()
         except KeyboardInterrupt as mess:
             showMatrix(totalFileSize, statusCodeCount)
             raise mess
+        except EOFError:
+            break
         lastStopped += 1
         match = pattern.match(log)
         if match is None:
@@ -56,6 +58,7 @@ def run():
         if lastStopped == 10:
             lastStopped = 0
             showMatrix(totalFileSize, statusCodeCount)
+    showMatrix(totalFileSize, statusCodeCount)
 
 
 if __name__ == "__main__":
