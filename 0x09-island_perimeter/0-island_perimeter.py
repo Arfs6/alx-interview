@@ -13,16 +13,32 @@ def _getPartialPerimeter(grid, tileIdx, rowIdx):
     - int: An integer representing the island perimeter nearby.
     """
     partialPerimeter = 0
-    if tileIdx != 0 and grid[rowIdx][tileIdx - 1] == 1:
+    if (
+                (tileIdx != 0 and grid[rowIdx][tileIdx - 1] == 0)
+            or
+            tileIdx == 0
+            ):
         # left tile
         partialPerimeter += 1
-    if tileIdx + 1 < len(grid[rowIdx]) and grid[rowIdx][tileIdx + 1] == 1:
+    if (
+                (tileIdx + 1 < len(grid[rowIdx]) and grid[rowIdx][tileIdx + 1] == 0)
+            or
+            tileIdx + 1 == len(grid[rowIdx])
+            ):
         # right tile
         partialPerimeter += 1
-    if rowIdx != 0 and grid[rowIdx - 1][tileIdx] == 1:
+    if (
+                (rowIdx != 0 and grid[rowIdx - 1][tileIdx] == 0)
+            or
+            rowIdx == 0
+            ):
         # top tile
         partialPerimeter += 1
-    if rowIdx + 1 < len(grid) and grid[rowIdx + 1][tileIdx] == 1:
+    if (
+                (rowIdx + 1 < len(grid) and grid[rowIdx + 1][tileIdx] == 0)
+            or
+            rowIdx + 1 == len(grid)
+            ):
         # bottom tile
         partialPerimeter += 1
     return partialPerimeter
@@ -37,6 +53,6 @@ def island_perimeter(grid):
     perimeter = 0
     for rowIdx, row in enumerate(grid):
         for tileIdx, tile in enumerate(row):
-            if tile == 0:  # If this tile represent an ocean.
+            if tile == 1:
                 perimeter += _getPartialPerimeter(grid, tileIdx, rowIdx)
     return perimeter
